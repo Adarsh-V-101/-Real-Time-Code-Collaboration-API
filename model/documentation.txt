@@ -1,0 +1,12 @@
+22-Apr-2026 : 
+created the repo on github ,
+first commit ,
+project setup installed express,mongodb,ejs
+files: app.js,auth.js,userModel.js
+ejs: home, login, signup using copilot
+
+next: 
+-- authorisation
+-- connect database
+-- authentication
+-- middleware

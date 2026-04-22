@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Code Collaboration API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(15, 15, 15, 0.9);
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn, .signup-btn {
+            background: transparent;
+            color: #00d4ff;
+            border: 2px solid #00d4ff;
+        }
+
+        .login-btn:hover, .signup-btn:hover {
+            background: #00d4ff;
+            color: #0f0f0f;
+        }
+
+        .signup-btn {
+            background: #00d4ff;
+            color: #0f0f0f;
+            border: 2px solid #00d4ff;
+        }
+
+        .signup-btn:hover {
+            background: transparent;
+            color: #00d4ff;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .collaborate-btn {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #0f0f0f;
+            padding: 15px 40px;
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .collaborate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1000px;
+        }
+
+        .feature {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .feature h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">💻 CodeCollab</div>
+        <div class="nav-buttons">
+            <button class="login-btn" onclick="window.location.href='/login'">Login</button>
+            <button class="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+        </div>
+    </header>
+
+    <main>
+        <h1>Real-Time Code Collaboration</h1>
+        <p class="subtitle">Write, collaborate, and debug code together in real-time with developers worldwide</p>
+        <button class="collaborate-btn">Start Collaborating →</button>
+
+        <div class="features">
+            <div class="feature">
+                <h3>⚡ Real-Time Sync</h3>
+                <p>See changes instantly as your team codes. Multi-cursor support for seamless collaboration.</p>
+            </div>
+            <div class="feature">
+                <h3>🔒 Secure & Private</h3>
+                <p>End-to-end encrypted sessions. Your code stays private with role-based access control.</p>
+            </div>
+            <div class="feature">
+                <h3>🌍 Multi-Language</h3>
+                <p>Support for 50+ programming languages with syntax highlighting and auto-completion.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
