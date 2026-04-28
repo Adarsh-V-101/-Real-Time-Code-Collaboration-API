@@ -10,3 +10,19 @@ next:
 -- connect database - done
 -- authentication - done
 -- middleware - done
+
+24-Apr-2026
+connected database successfully
+user schema
+
+26-apr-2026
+completed authentication
+login and signup page
+
+28-apr-2026
+middleware ,authorisation
+
+next:
+-- home page
+-- coding board
+-- backend logic for the board
