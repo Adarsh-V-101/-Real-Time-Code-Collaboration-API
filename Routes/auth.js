@@ -1,23 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const userSchema = require('../model/userModel');
+const controller = require('../controller/authControl');
+const loginMiddleware = require('../utilities/loginMiddleware')
+router.get('/', controller.home);
 
-router.get('/', (req, res) => {
-    res.render('home');
+router.get('/login',loginMiddleware, controller.getLogin);
 
-});
+router.post('/login',loginMiddleware, controller.postLogin);
 
-router.get('/login', (req, res) => {
-    res.render('login');
-});
+router.get('/signup',loginMiddleware, controller.getSignup);
 
-router.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    res.send(`Login attempted with email: ${email} and password: ${password}`);
-});
-
-router.get('/signup', (req, res) => {
-    res.render('signup');
-});
+router.post('/signup',loginMiddleware, controller.postSignup)
 
 module.exports = router;

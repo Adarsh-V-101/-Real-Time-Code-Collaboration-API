@@ -6,7 +6,7 @@ files: app.js,auth.js,userModel.js
 ejs: home, login, signup using copilot
 
 next: 
--- authorisation
--- connect database
--- authentication
--- middleware
+-- authorisation - done
+-- connect database - done
+-- authentication - done
+-- middleware - done

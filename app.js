@@ -10,13 +10,6 @@ app.set('view engine','ejs')
 
 app.use('/', authRoute);
 
-mongoose.connect('mongodb://localhost:27071/codeCollab')
-.then(()=>{
-    console.log("connected succesfully");
-})
-.catch((err)=>{
-    console.log("error: ",err);
-})
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
