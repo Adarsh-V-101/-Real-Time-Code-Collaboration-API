@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const authRoute = require('./Routes/auth');
+const route = require('./Routes/routs');
 const mongoose = require('mongoose');
 const cookieParser = require("cookie-parser");
 
@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set('view engine','ejs')
 
-app.use('/', authRoute);
+app.use('/', route);
 
 
 app.listen(port, () => {

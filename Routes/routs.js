@@ -14,6 +14,8 @@ router.post('/signup', controller.postSignup);
 
 router.get('/logout', controller.logout);
 
-router.get('/profile', loginMiddleware, controller.getProfile)
+router.get('/profile', loginMiddleware, controller.getProfile);
+
+router.get('/code', loginMiddleware, controller.goCode);
 
 module.exports = router;

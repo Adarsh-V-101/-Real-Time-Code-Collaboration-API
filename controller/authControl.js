@@ -71,3 +71,8 @@ exports.logout = (req, res) => {
   res.clearCookie("token");
   res.redirect("/");
 };
+
+
+exports.goCode = (req,res)=>{
+  res.render("codingBoard");
+}
