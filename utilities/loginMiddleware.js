@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../model/userModel");
 
-module.exports = async (requestAnimationFrame,resizeBy,next)=>{
-    const token = req.body.token;
+module.exports = async (req,res,next)=>{
+    const token = req.cookies.token;
     if(!token){
         return res.redirect('/login')
     }
-    const decoded = jwt.verify(token,'jadupanti')
+    const decoded = jwt.verify(token,'secretKey')
     
     const user = await userModel.findOne({email:decoded.email}).select('-password')
     

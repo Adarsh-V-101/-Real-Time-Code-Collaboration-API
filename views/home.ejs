@@ -145,12 +145,14 @@
         }
     </style>
 </head>
-<body>
+<body onload = 'toggleButtons()'>
+    
     <header>
         <div class="logo">💻 CodeCollab</div>
         <div class="nav-buttons">
-            <button class="login-btn" onclick="window.location.href='/login'">Login</button>
-            <button class="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+            <button class="login-btn" id="login-btn" onclick="window.location.href='/login'">Login</button>
+            <button class="signup-btn" id="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+            <button class="profile-btn" id="profile-btn" onclick="window.location.href='/profile'">Profile</button>
         </div>
     </header>
 
@@ -174,5 +176,32 @@
             </div>
         </div>
     </main>
+    <script>
+        function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        const token = document.cookie;
+        const loginBtn = document.getElementById('login-btn');
+        const profileBtn = document.getElementById('profile-btn');
+        const signupBtn = document.getElementById('signup-btn');
+
+        function toggleButtons() {
+            if (token) {
+                console.log("User is logged in");
+                loginBtn.style.display = 'none';
+                signupBtn.style.display = 'none';
+                profileBtn.style.display = 'block';
+            } else {
+                console.log("User is not logged in");
+                loginBtn.style.display = 'block';
+                signupBtn.style.display = 'block';
+                profileBtn.style.display = 'none';
+            }
+        }
+
+    </script>
 </body>
 </html>

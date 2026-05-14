@@ -2,7 +2,7 @@ const express = require("express");
 const userSchema = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const islogin = require("../utilities/loginMiddleware")
+const islogin = require("../utilities/loginMiddleware");
 
 exports.home = (req, res) => {
   res.render("home");
@@ -23,32 +23,51 @@ exports.postSignup = async (req, res) => {
   if (!existingUser) {
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, async function (err, hash) {
-       const user = await userSchema.create({
+        const user = await userSchema.create({
           username: name,
           email,
           password: hash,
         });
-        const token = jwt.sign({ email: user.email, id: user._id }, "jadupanti");
+        const token = jwt.sign(
+          { email: user.email, id: user._id },
+          "secretKey",
+        );
         res.cookie("token", token);
+        res.status(200);
+        res.redirect("/");
+        console.log("User created successfully");
       });
     });
-    res.status(200);
-    res.redirect("/");
   } else {
     res.render("default", { message: "User already exists" });
   }
 };
 
-exports.postLogin = (req, res) => {
+exports.postLogin = async (req, res) => {
   const { email, password } = req.body;
-
-  const user = userSchema.findOne({ email });
+  const user = await userSchema.findOne({ email });
   bcrypt.compare(password, user.password, function (err, result) {
     if (result == true) {
-        const token = jwt.sign({ email: email, id: user._id }, "jadupanti");
-        res.cookie("token", token);
-        res.status(200);
-      res.redirect("/");    
+      const token = jwt.sign({ email: email, id: user._id }, "secretKey");
+      res.cookie("token", token);
+      res.status(200);
+      res.redirect("/");
+    } else {
+      res.render("default", { message: "Invalid email or password" });
     }
   });
+};
+
+exports.getProfile = async (req, res) => {
+  const token = req.cookies.token;
+  // console.log(req.user)
+  const user = await userSchema
+    .findOne({ email: req.user.email })
+    .select("-password");
+  res.render("profile", { user });
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/");
 };
