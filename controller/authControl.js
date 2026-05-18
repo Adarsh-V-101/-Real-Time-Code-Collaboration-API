@@ -46,16 +46,20 @@ exports.postSignup = async (req, res) => {
 exports.postLogin = async (req, res) => {
   const { email, password } = req.body;
   const user = await userSchema.findOne({ email });
-  bcrypt.compare(password, user.password, function (err, result) {
-    if (result == true) {
-      const token = jwt.sign({ email: email, id: user._id }, "secretKey");
-      res.cookie("token", token);
-      res.status(200);
-      res.redirect("/");
-    } else {
-      res.render("default", { message: "Invalid email or password" });
-    }
-  });
+  if (user) {
+    bcrypt.compare(password, user.password, function (err, result) {
+      if (result == true) {
+        const token = jwt.sign({ email: email, id: user._id }, "secretKey");
+        res.cookie("token", token);
+        res.status(200);
+        res.redirect("/");
+      } else {
+        res.render("default", { message: "Invalid email or password" });
+      }
+    });
+  } else {
+    res.render("default", { message: "Invalid email or password" });
+  }
 };
 
 exports.getProfile = async (req, res) => {
@@ -72,7 +76,6 @@ exports.logout = (req, res) => {
   res.redirect("/");
 };
 
-
-exports.goCode = (req,res)=>{
+exports.goCode = (req, res) => {
   res.render("codingBoard");
-}
+};

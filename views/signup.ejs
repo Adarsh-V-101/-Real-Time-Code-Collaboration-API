@@ -1,129 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: bold;
-        }
-        
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
-        }
-        
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        button:hover {
-            background: #764ba2;
-        }
-        
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .login-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .login-link a:hover {
-            text-decoration: underline;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #764ba2;
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .login-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Sign Up</h1>
-        <form action="/signup" method="POST">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="confirm">Confirm Password</label>
-                <input type="password" id="confirm" name="confirm" required>
-            </div>
-            
-            <button type="submit">Sign Up</button>
-        </form>
-        
-        <div class="login-link">
-            Already have an account? <a href="/login">Log in</a>
+      <h1>Sign Up</h1>
+      <form method="POST" id="signup-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
         </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" id="confirm" name="confirm" required />
+        </div>
+
+          <input type="hidden" id="secret-code" name="secret-code">
+
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <form method="post" id="verification">
+        <p>A verification code has been sent to your email.</p>
+        <label for="code">Verification Code</label>
+        <input type="number" id="code" name="code" required />
+        <button type="submit" id="verifyBtn">Verify</button>
+      </form>
+
+      <div class="login-link">
+        Already have an account? <a href="/login">Log in</a>
+      </div>
     </div>
-</body>
+
+    <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  emailjs.init('ewZ5mSAWuSxb24NdM')
+</script>
+
+    <script>
+  const form = document.getElementById("signup-form");
+  const password = document.getElementById("password");
+  const confirm = document.getElementById("confirm");
+  const code = document.getElementById("code");
+  const verificationForm = document.getElementById("verification");
+
+  const serviceId = "service_ndv8amq";
+  const templateId = "template_qlsb9ij";
+
+  // Generate 4 digit code
+  const randomVal = Math.floor(1000 + Math.random() * 9000);
+  
+  verificationForm.style.display = "none";
+
+  // Store code in hidden input
+  document.getElementById("secret-code").value = randomVal;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Password match check
+    if (password.value !== confirm.value) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    // Send email
+    emailjs
+      .sendForm(serviceId, templateId, form)
+      .then(function () {
+        alert("Verification code sent to your email!");
+
+        form.style.display = "none";
+        verificationForm.style.display = "block";
+      })
+      .catch(function (err) {
+        console.log("Email FAILED...", err);
+        alert("Failed to send verification email.");
+      });
+  });
+
+  verificationForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (code.value != randomVal) {
+      alert("Incorrect verification code!");
+    } else {
+      form.setAttribute("action", "/signup");
+      form.submit();
+    }
+  });
+</script>
+  </body>
 </html>

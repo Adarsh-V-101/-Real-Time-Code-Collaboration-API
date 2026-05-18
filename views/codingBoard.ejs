@@ -1,362 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding Board - Real-Time Collaboration</title>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: #1e1e1e;
-            color: #e0e0e0;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 15px 20px;
-            border-bottom: 2px solid #667eea;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .content {
-            display: flex;
-            flex: 1;
-            gap: 15px;
-            padding: 15px;
-            overflow: hidden;
-        }
-
-        .sidebar {
-            width: 250px;
-            background: #252526;
-            border-radius: 8px;
-            padding: 15px;
-            overflow-y: auto;
-            border: 1px solid #3e3e42;
-        }
-
-        .sidebar h3 {
-            margin-bottom: 15px;
-            font-size: 14px;
-            text-transform: uppercase;
-            color: #888;
-            font-weight: 600;
-        }
-
-        .file-list {
-            list-style: none;
-        }
-
-        .file-item {
-            padding: 8px 12px;
-            margin-bottom: 5px;
-            background: #2d2d30;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-        }
-
-        .file-item:hover {
-            background: #3e3e42;
-        }
-
-        .file-item.active {
-            background: #667eea;
-            border-left-color: #764ba2;
-        }
-
-        .editor-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #252526;
-            border-radius: 8px;
-            border: 1px solid #3e3e42;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .editor-header {
-            background: #2d2d30;
-            padding: 12px 15px;
-            border-bottom: 1px solid #3e3e42;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .editor-title {
-            font-size: 13px;
-            font-weight: 500;
-            color: #e0e0e0;
-        }
-
-        .editor-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-
-        .btn:hover {
-            background: #764ba2;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #3e3e42;
-            color: #e0e0e0;
-        }
-
-        .btn-secondary:hover {
-            background: #4e4e52;
-        }
-
-        .editor-wrapper {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        .line-numbers {
-            background: #1e1e1e;
-            color: #858585;
-            padding: 10px 8px;
-            text-align: right;
-            user-select: none;
-            border-right: 1px solid #3e3e42;
-            font-family: "Courier New", monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            overflow: hidden;
-            min-width: 50px;
-        }
-
-        .code-editor {
-            flex: 1;
-            padding: 10px 15px;
-            font-family: "Courier New", monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            overflow-y: auto;
-            overflow-x: auto;
-            background: #1e1e1e;
-        }
-
-        .code-editor textarea {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #e0e0e0;
-            resize: none;
-            font-family: "Courier New", monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            tabs: 4;
-        }
-
-        .output-panel {
-            width: 300px;
-            background: #252526;
-            border-radius: 8px;
-            padding: 15px;
-            border: 1px solid #3e3e42;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .output-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .output-header {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #888;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .output-content {
-            flex: 1;
-            background: #1e1e1e;
-            border-radius: 4px;
-            padding: 10px;
-            overflow-y: auto;
-            border: 1px solid #3e3e42;
-            font-family: "Courier New", monospace;
-            font-size: 12px;
-        }
-
-        .output-content.empty {
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .console-log {
-            color: #e0e0e0;
-            padding: 2px 0;
-        }
-
-        .console-error {
-            color: #f48771;
-            padding: 2px 0;
-        }
-
-        .console-warn {
-            color: #dcdcaa;
-            padding: 2px 0;
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1e1e1e;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #464647;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5e5e5f;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Panel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #494949;
+      color: #9077ff;
+    }
+    .panel {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #5e5e5e;
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .panel-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .editor-container {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 18px;
+    }
+    .editor-box, .output-box {
+      background: #1e1e2f;
+      border-radius: 10px;
+      padding: 16px;
+      color: #f5f6fa;
+    }
+    .editor-box textarea {
+      width: 100%;
+      min-height: 420px;
+      border: none;
+      resize: vertical;
+      background: #1e1e2f;
+      color: #e7e7ff;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      outline: none;
+    }
+    .output-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .output-box h2 {
+      margin: 0;
+      font-size: 1rem;
+      color: #c1c7f0;
+    }
+    .output-display {
+      flex: 1;
+      background: #111122;
+      border-radius: 8px;
+      padding: 12px;
+      overflow-y: auto;
+      min-height: 420px;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.95rem;
+      color: #dcdfe8;
+      white-space: pre-wrap;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .actions button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      background: #4f6cff;
+      color: #fff;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>💻 Real-Time Code Collaboration Board</h1>
-        </div>
-
-        <div class="content">
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <h3>Files</h3>
-                <ul class="file-list">
-                    <li class="file-item active">index.js</li>
-                    <li class="file-item">script.js</li>
-                    <li class="file-item">style.css</li>
-                    <li class="file-item">utils.js</li>
-                    <li class="file-item">config.json</li>
-                </ul>
-            </div>
-
-            <!-- Editor Panel -->
-            <div class="editor-container">
-                <div class="editor-header">
-                    <div class="editor-title">📄 index.js</div>
-                    <div class="editor-actions">
-                        <button class="btn btn-secondary">Format</button>
-                        <button class="btn" id='runBtn' onclick='codeRunner()'>Run Code</button>
-                    </div>
-                </div>
-                <div class="editor-wrapper">
-                    <div class="line-numbers" id="lineNumbers"></div>
-                    <div class="code-editor">
-                        <textarea id="codeInput" spellcheck="false" placeholder="// Start typing your code here...">
-              </textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Output Panel -->
-            <div class="output-panel">
-                <div class="output-section">
-                    <div class="output-header">Console Output</div>
-                    <div class="output-content" id="consoleOutput">
-                        <div class="empty" id="console"></div>
-                    </div>
-                </div>
-                <div class="output-section">
-                    <div class="output-header">Errors</div>
-                    <div class="output-content" id="errorOutput">
-                        <div class="empty" id="errors">No errors</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">Simple Coding Panel</div>
+        <div>Write code on the left and preview output on the right.</div>
+      </div>
+      <div class="actions">
+        <button id="runBtn" type="button">Run</button>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>
-        const codeInput = document.getElementById("codeInput");
-        const lineNumbers = document.getElementById("lineNumbers");
-        const consoleOutput = document.getElementById("consoleOutput");
-        const errorOutput = document.getElementById("errorOutput");
-        const outputPanel = document.getElementById("console");
+    <div class="editor-container">
+      <div class="editor-box">
+        <textarea id="codeEditor" spellcheck="false">// Type JavaScript here
+console.log('Hello, world!');</textarea>
+      </div>
+      <div class="output-box">
+        <h2>Console Output</h2>
+        <div id="output" class="output-display">Press Run to execute the code.</div>
+      </div>
+    </div>
+  </section>
 
-        // to run the code in the textarea and display output in consoleOutput
-        function codeRunner() {
-            outputPanel.innerHTML = `<script> ${codeInput.value} </script>`;
+  <script>
+    const runBtn = document.getElementById('runBtn');
+    const codeEditor = document.getElementById('codeEditor');
+    const output = document.getElementById('output');
+    const originalLog = console.log;
+
+    runBtn.addEventListener('click', () => {
+      output.textContent = '';
+      try {
+        const result = new Function(codeEditor.value)()s;
+        console.log(result);
+      } catch (error) {
+        output.textContent = 'Error: ' + error.message;
+      }
+    });
+
+    console.log = function(msg){
+      const line = document.createElement('div');
+      line.textContent = msg;
+      output.appendChild(line);
+      // originalLog.apply(console,arguments)
     }
-
-
-    // Update line numbers
-    function updateLineNumbers() {
-    const lines = codeInput.value.split("\n").length;
-    let lineNumbersHtml = "";
-    for (let i = 1; i <= lines; i++) { lineNumbersHtml +=i + "\n" ; } lineNumbers.textContent=lineNumbersHtml; } // Sync
-        scroll between editor and line numbers function syncScroll() { lineNumbers.scrollTop=codeInput.scrollTop; }
-        codeInput.addEventListener("input", updateLineNumbers); codeInput.addEventListener("scroll", syncScroll); //
-        Initialize line numbers updateLineNumbers(); // File switching
-        document.querySelectorAll(".file-item").forEach((item)=> {
-        item.addEventListener("click", function () {
-        document
-        .querySelectorAll(".file-item")
-        .forEach((f) => f.classList.remove("active"));
-        this.classList.add("active");
-        });
-        });
-        </script>
+  </script>
 </body>
-
 </html>
